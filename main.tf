@@ -8,7 +8,6 @@ resource "aws_rds_cluster" "main" {
   backup_retention_period = var.backup_retention_period
   preferred_backup_window = var.preferred_backup_window
   db_subnet_group_name    = aws_db_subnet_group.main.name
-  skip_final_snapshot     = false
   tags = merge(
     var.tags,
     { Name = "${var.env}-rds" }

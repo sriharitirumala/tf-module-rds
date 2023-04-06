@@ -23,6 +23,7 @@ resource "aws_security_group" "main" {
   description = "rds-${var.env}"
   vpc_id      = var.vpc_id
 
+
   ingress {
     description = "RDS"
     from_port   = 3306

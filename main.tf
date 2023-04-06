@@ -21,7 +21,7 @@ resource "aws_rds_cluster_instance" "main" {
   instance_class     = var.instance_class
   engine             = var.engine
   engine_version     = var.engine_version
-  skip_final_snapshot     = true
+  skip_final_snapshot     = false
 }
 
 

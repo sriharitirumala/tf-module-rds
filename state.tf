@@ -1,1 +1,1 @@
-skip_final_snapshot       = false
+skip_final_snapshot       = true

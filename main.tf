@@ -7,22 +7,21 @@ resource "aws_rds_cluster" "main" {
   master_password         = data.aws_ssm_parameter.pass.value
   backup_retention_period = var.backup_retention_period
   preferred_backup_window = var.preferred_backup_window
-  db_subnet_group_name = aws_db_subnet_group.main.name
+  db_subnet_group_name    = aws_db_subnet_group.main.name
   skip_final_snapshot     = true
   vpc_security_group_ids  = [aws_security_group.main.id]
-
 
   tags = merge(
     var.tags,
     { Name = "${var.env}-rds" }
   )
+
 }
 
 resource "aws_security_group" "main" {
   name        = "rds-${var.env}"
   description = "rds-${var.env}"
   vpc_id      = var.vpc_id
-
 
   ingress {
     description = "RDS"
@@ -47,19 +46,18 @@ resource "aws_security_group" "main" {
 }
 
 
-
 resource "aws_rds_cluster_instance" "main" {
   count              = var.no_of_instances
   identifier         = "${var.env}-rds-${count.index}"
   cluster_identifier = aws_rds_cluster.main.id
   instance_class     = var.instance_class
-  engine                  = var.engine
-  engine_version          = var.engine_version
+  engine             = var.engine
+  engine_version     = var.engine_version
 }
 
 
 resource "aws_db_subnet_group" "main" {
-  name = "${var.env}-rds"
+  name       = "${var.env}-rds"
   subnet_ids = var.subnet_ids
 
   tags = merge(
@@ -73,3 +71,4 @@ resource "aws_ssm_parameter" "rds_endpoint" {
   type  = "String"
   value = aws_rds_cluster.main.endpoint
 }
+
